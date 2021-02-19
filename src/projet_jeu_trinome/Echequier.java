@@ -319,11 +319,15 @@ public class Echequier {
         int[] wish = new int[2];
         wish[0] = x2;
         wish[1] = y2;
-        if (tab[x][y].calculMovePossible(wish)){
-            this.setTab(x, y, x2, y2);
-            System.out.println("Mouvement effectue.");
+        if(tab[x][y] != null){
+            if (tab[x][y].calculMovePossible(wish)){
+                this.setTab(x, y, x2, y2);
+                System.out.println("Mouvement effectue.");
+            }else{
+                System.out.println("Mouvement impossible.");
+            }
         }else{
-            System.out.println("Mouvement impossible.");
+            System.out.println("La piece n'existe pas zebi");
         }
     }
     public void setTab(int x, int y, int a, int b) {
