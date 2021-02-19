@@ -33,8 +33,9 @@ public class Piece {
         }
         return false;
     }
+    
     public String toString(){
-        return String.valueOf(position_Piece[0]) + String.valueOf(position_Piece[1]);
+        return String.valueOf(position_Piece[0]) + String.valueOf(position_Piece[1]+ couleur_Pièce);
     }
     public int[] getPosition(){
         return position_Piece;

@@ -22,7 +22,9 @@ public class Projet_Jeu_Trinome {
     }
 
     public static void gestion_Partie() {
-        Echequier echequier = new Echequier();
+        Player player1 = new Player("zebi",1);
+        Player player2 = new Player("zebi",2);
+        Echequier echequier = new Echequier(player1, player2);
         
         echequier.create_Piece();
         echequier.affichage_tab();
@@ -47,7 +49,7 @@ public class Projet_Jeu_Trinome {
                 int x2 = sc.nextInt();
                 System.out.println("Nouveau y ?");
                 int y2 = sc.nextInt();
-                echequier.moves(x, y, x2, y2);
+                System.out.println(echequier.moves(x, y, x2, y2));
 //                echequier.
 //                echequier.setTab(x, y, x2, y2);
                 
