@@ -352,12 +352,12 @@ public class Echequier {
         if (Jun.verfifList(pieceUne) && Jdeux.verfifList(pieceDeux)){
             this.setTab(x, y, x2, y2);
             Jdeux.remove(pieceDeux);
-            return "Mouvement effectue.";
+            return "Capture effectuee.";
         }
         if (Jdeux.verfifList(pieceUne) && Jun.verfifList(pieceDeux)){
             this.setTab(x, y, x2, y2);
             Jdeux.remove(pieceUne);
-            return "Mouvement effectue.";
+            return "Capture effectuee.";
         }else {
             return "Mouvement impossible.";
                     }
