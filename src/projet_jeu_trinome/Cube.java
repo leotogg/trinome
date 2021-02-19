@@ -15,6 +15,7 @@ public class Cube extends Piece{
 //              Attributs       
     private int[][] moves = new int[4][3];
     private boolean capture_Cube;
+    private boolean capture = true;
 //----------------------------------------------
 //              Constructeur       
     public Cube(String couleur_Pièce, int[] position) {
@@ -79,5 +80,7 @@ public class Cube extends Piece{
         return "Cu" + super.toString();
     }
     
-    
+    public boolean getCapture(){
+        return capture;
+    }
 }

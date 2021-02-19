@@ -17,6 +17,8 @@ public class Piece {
     private int[] position_Piece = new int[2];
     private boolean capture;
     private boolean moveAble;
+    private boolean captured = true;
+    private boolean moved = true;
 //----------------------------------------------
 //              Constructeur   
     public Piece(String couleur_Pièce, int[] position) {
@@ -50,5 +52,20 @@ public class Piece {
         move[0][1] = 0;
         
         return false;
+    }
+    public boolean getCapture(){
+        return capture;
+    }
+    public boolean getCaptured(){
+        return captured;
+    }
+    public void setCaptured(){
+        captured = false;
+    }
+    public boolean getMoved(){
+        return moved;
+    }
+    public void setMoved(){
+        moved = false;
     }
 }

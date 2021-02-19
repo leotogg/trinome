@@ -15,6 +15,7 @@ public class Pyramide extends Piece{
 //              Attributs   
     private int[][] moves = new int[4][3];
     private boolean capture_Pyramide;
+    private boolean capture = true;
 //----------------------------------------------
 //              Constructeurs   
     public Pyramide(String couleur_Pièce, int[] position) {
@@ -74,6 +75,9 @@ public class Pyramide extends Piece{
     }
     public String toString(){
         return "Py" + super.toString();
+    }
+    public boolean getCapture(){
+        return capture;
     }
 //----------------------------------------------    
 }

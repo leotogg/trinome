@@ -6,6 +6,7 @@
 package projet_jeu_trinome;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -32,6 +33,14 @@ public class Player {
     }
     public void remove(Piece piece){
         listPiece.remove(piece);
+    }
+    public void Game(Echequier echequier, int x, int y, int x2, int y2){
+        if (listPiece.contains(echequier.getCase(x, y))){
+            System.out.println(echequier.moves(x, y, x2, y2));
+        }else{
+            System.out.println("La piece ne vous appartient pas.");
+        }
+                
     }
 }
 
