@@ -27,7 +27,7 @@ public class Piece {
 //              Méthodes       
     public boolean déplacement(int[] wish, int[][] move){
         for (int i=0; i<move.length; i++){
-            if (move[i][0]== wish[0] && move[i][1] == wish[1]){
+            if (move[i][0]== wish[0] && move[i][1] == wish[1] && move[i][2] == 1){
                 return true;
             }
         }
