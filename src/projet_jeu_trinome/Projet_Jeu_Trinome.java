@@ -28,11 +28,9 @@ public class Projet_Jeu_Trinome {
         
         echequier.create_Piece();
         echequier.affichage_tab();
-//        echequier.create_Echequier();
-//        echequier.create_PiecesVerte();
-//        echequier.create_PiecesRouge();
-//        echequier.affichage_echequier();
         boolean end = false;
+        boolean j1 = false;
+        boolean j2 = false;
         while (end == false) {
             String[] piece_on_echiquier = new String[1];
             int compteur = 0;
@@ -41,23 +39,42 @@ public class Projet_Jeu_Trinome {
 //            String rep = sc.nextLine();
 //            if ("J".equals(rep) ||"j".equals(rep)) {
             if (!end){
-                int x = ask(sc)[0];
-                int y = ask(sc)[1];
-                int x2 = ask(sc)[2];
-                int y2 = ask(sc)[3];
-                
-                player1.Game(echequier, x, y, x2, y2);
-                
-                x = ask(sc)[0];
-                y = ask(sc)[1];
-                x2 = ask(sc)[2];
-                y2 = ask(sc)[3];
-                
-                player2.Game(echequier, x, y, x2, y2);
-//                System.out.println(echequier.moves(x, y, x2, y2));
-//               
-//                }
+                while(!j1){
+                    System.out.println("Tour du joueur vert.");
+                    int[] resultat = ask(sc);
+                    int x = resultat[0];
+                    int y = resultat[1];
+                    int x2 = resultat[2];
+                    int y2 = resultat[3];
+
+                    j1 = player1.Game(echequier, x, y, x2, y2);
+                    j2=false;
+                }
                 echequier.affichage_tab();
+                if(player1.getWin()){
+                    j2 = true;
+                    System.out.println("Le joueur vert a gagné, félicitation bg.");
+                    System.out.println("Fermeture du programme");
+                    end = true;
+                }
+                while(!j2){
+                    System.out.println("Tour du joueur rouge.");
+                    int[] resultat = ask(sc);
+                    int x = resultat[0];
+                    int y = resultat[1];
+                    int x2 = resultat[2];
+                    int y2 = resultat[3];
+
+                    j2 = player2.Game(echequier, x, y, x2, y2);
+                    j1=false;
+                }
+                echequier.affichage_tab();
+                if(player2.getWin()){
+                    j1 = true;
+                    System.out.println("\nLe joueur vert a gagné, félicitation bg.");
+                    System.out.println("Fermeture du programme.");
+                    end = true;
+                }
 
             }
 //            if ("Q".equals(rep)||"q".equals(rep)) {

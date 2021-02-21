@@ -16,17 +16,10 @@ public class Echequier {
 
 //----------------------------------------------
 //              Attributs   
-    private String[] liste_PieceVerte = new String[15];
-    private String[] liste_PieceRouge = new String[15];
-    
-    private boolean zone_Rouge;
-    private boolean zone_Verte;
-    private String[] cubeTab = new String[6];
-    private String[] pyramideTab = new String[6];
-    private String[] dShpèreTab = new String[3];
-    private String[][] echequier = new String[11][11];
     
     private Piece[][] tab = new Piece[11][11];
+    private ArrayList<Piece> rouge = new ArrayList<Piece>();
+    private ArrayList<Piece> vert = new ArrayList<Piece>();
     private ArrayList<Piece> listPiece = new ArrayList<Piece>();
     private Player Jun;
     private Player Jdeux;
@@ -89,6 +82,18 @@ public class Echequier {
                     Jdeux.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
+//                if ((i==6 && (j==0))){
+//                    Piece piece = new Cube("verte",tab);
+//                    listPiece.add(piece);
+//                    Jun.ajoutPiece(piece);
+//                    this.tab[i][j] = piece;
+//                }
+//                if (i==5 && (j==0)){
+//                    Piece piece = new DemiSphere("verte",tab);
+//                    listPiece.add(piece);
+//                    Jun.ajoutPiece(piece);
+//                    this.tab[i][j] = piece;
+//                }
             }
         }
     }
@@ -103,7 +108,7 @@ public class Echequier {
     public Piece getCase(int x, int y) {
         return tab[x][y];
     }
-    public String moves(int x, int y, int x2, int y2) {
+    public boolean moves(int x, int y, int x2, int y2) {
         int[] wish = new int[2];
         wish[0] = x2;
         wish[1] = y2;
@@ -111,37 +116,52 @@ public class Echequier {
             if (tab[x][y].calculMovePossible(wish) && tab[x2][y2]==null){
                 this.setTab(x, y, x2, y2);
                 this.verifZone(tab[x2][y2]);
-                return "Mouvement effectue.";
+                System.out.println( "Mouvement effectue.");
+                return true;
             }
             if(tab[x][y].calculMovePossible(wish) && tab[x2][y2]!=null){
                 return this.capture(x,y,x2,y2);
             }else{
-                return "Mouvement impossible.";
+                System.out.println( "Mouvement impossible.");
+                return false;
             }
         }else{
-            return "La piece n'existe pas ou ne peut plus bouger.";
+            System.out.println("La piece n'existe pas ou ne peut plus bouger.");
+            return false;
         }
     }
     
-    public String capture(int x, int y, int x2, int y2){
+    public boolean capture(int x, int y, int x2, int y2){
         Piece pieceUne = tab[x][y];
         Piece pieceDeux = tab[x2][y2];
         if ((Jun.verfifList(pieceUne) && Jun.verfifList(pieceDeux)) || (Jdeux.verfifList(pieceUne) && Jdeux.verfifList(pieceDeux))){
-            return "Mouvement impossible.";
+            System.out.println("Mouvement impossible.");
+            return false;
         }
         if (Jun.verfifList(pieceUne) && Jdeux.verfifList(pieceDeux) && tab[x][y].getCapture()){
+            System.out.println(pieceUne +" vient de prendre "+pieceDeux);
             this.setTab(x, y, x2, y2);
             Jdeux.remove(pieceDeux);
             this.verifZone(tab[x2][y2]);
-            return "Capture effectuee.";
+            if(Jdeux.verifLose()){
+                Jun.win();
+            }
+            System.out.println("Capture effectuee.");
+            return true;
         }
         if (Jdeux.verfifList(pieceUne) && Jun.verfifList(pieceDeux) && tab[x][y].getCapture()){
+            System.out.println(pieceUne +" vient de prendre "+pieceDeux);
             this.setTab(x, y, x2, y2);
-            Jdeux.remove(pieceUne);
+            Jun.remove(pieceDeux);
             this.verifZone(tab[x2][y2]);
-            return "Capture effectuee.";
+            if(Jun.verifLose()){
+                Jdeux.win();
+            }
+            System.out.println("Capture effectuee.");
+            return true;
         }else {
-            return "Mouvement impossible.";
+            System.out.println("Mouvement impossible.");
+            return false;
                     }
     }
     
@@ -157,10 +177,24 @@ public class Echequier {
         if (((x ==0 && y==4) ||(x ==0 && y==5 )||( x==0 && y==6 ))&& Jdeux.verfifList(piece)){
             piece.setCaptured();
             piece.setMoved();
-        }
+            if(vert.size()<4){
+                vert.add(piece);
+                if(vert.size()==3 && ((vert.get(0).getClass() != vert.get(1).getClass())&&(vert.get(0).getClass() != vert.get(2).getClass())&&(vert.get(1).getClass() != vert.get(2).getClass()))){
+                        Jdeux.win();
+                    }
+                }
+        }        
         if (((x ==10 && y==4) ||(x ==10 && y==5 )||( x==10 && y==6 ))&& Jun.verfifList(piece)){
             piece.setCaptured();
             piece.setMoved();
+            if(rouge.size()<4){
+                rouge.add(piece);
+                if(rouge.size()==3){
+                    if(rouge.size()==3 && ((rouge.get(0).getClass() != rouge.get(1).getClass())&&(rouge.get(0).getClass() != rouge.get(2).getClass())&&(rouge.get(1).getClass() != rouge.get(2).getClass()))){
+                        Jun.win();
+                    }
+                }
+            }
         }
     }
 
