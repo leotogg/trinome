@@ -62,6 +62,10 @@ public class Player {
     public boolean getWin(){
         return win;
     }
+    public void afficher(){
+        for (int i =0; i<listPiece.size(); i++)
+            System.out.println(listPiece.get(i));
+    }
 }
 
 

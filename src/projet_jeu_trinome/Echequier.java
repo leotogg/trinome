@@ -5,6 +5,8 @@
  */
 package projet_jeu_trinome;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -51,13 +53,13 @@ public class Echequier {
                     Jun.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
-                if ((i==0 && (j==2 || j==9)) ||(i==1 && (j==0 || j==1 ||j==9)) || (i==2 &&(j==0 ||j==10))){
+                if ((i==0 && (j==2 || j==8)) ||(i==1 && (j==1 ||j==9)) || (i==2 &&(j==0 ||j==10))){
                     Piece piece = new Cube("verte",tab);
                     listPiece.add(piece);
                     Jun.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
-                if (i==0 && (j==0 || j==4 ||j==5||j==6)){
+                if (i==0 && (j==4 ||j==5||j==6)){
                     Piece piece = new DemiSphere("verte",tab);
                     listPiece.add(piece);
                     Jun.ajoutPiece(piece);
@@ -70,13 +72,13 @@ public class Echequier {
                     Jdeux.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
-                if ((i==10 && (j==2 || j==9)) ||(i==9 && (j==0 || j==1 ||j==9)) || (i==8 &&(j==0 ||j==10))){
+                if ((i==10 && (j==2 || j==8)) ||(i==9 && (j==1 ||j==9)) || (i==8 &&(j==0 ||j==10))){
                     Piece piece = new Cube("rouge",tab);
                     listPiece.add(piece);
                     Jdeux.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
-                if (i==10 && (j==0 || j==4 ||j==5||j==6)){
+                if (i==10 && (j==4 ||j==5||j==6)){
                     Piece piece = new DemiSphere("rouge",tab);
                     listPiece.add(piece);
                     Jdeux.ajoutPiece(piece);
@@ -195,6 +197,21 @@ public class Echequier {
                     }
                 }
             }
+        }
+    }
+    public void sauvegarder(){
+//        Jun.afficher();
+        try{
+        FileWriter fich = new FileWriter("sauv.txt");
+        String listeSco = "";
+        for (Piece piece:listPiece){
+            listeSco += piece +"\n";
+        }
+        fich.write(listeSco);
+        
+        fich.close();
+        } catch (IOException ex) {
+         System.out.println("La liste de scores n’a pas pu être sauvegardée");
         }
     }
 

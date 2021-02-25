@@ -35,8 +35,8 @@ public class Projet_Jeu_Trinome {
             String[] piece_on_echiquier = new String[1];
             int compteur = 0;
             Scanner sc = new Scanner(System.in);
-//            System.out.println("Que voulez-vous faire ? J pour Jouer, Q pour Quitter");
-//            String rep = sc.nextLine();
+            System.out.println("Que voulez-vous faire ? J pour Jouer, Q pour Quitter");
+            String rep = sc.nextLine();
 //            if ("J".equals(rep) ||"j".equals(rep)) {
             if (!end){
                 while(!j1){
@@ -77,10 +77,11 @@ public class Projet_Jeu_Trinome {
                 }
 
             }
-//            if ("Q".equals(rep)||"q".equals(rep)) {
-//                System.out.println("Fermeture du programme");
-//                end = true;
-//            }
+            if ("Q".equals(rep)||"q".equals(rep)) {
+                System.out.println("Fermeture du programme");
+                echequier.sauvegarder();
+                end = true;
+            }
 
         }
     }
