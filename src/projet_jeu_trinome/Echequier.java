@@ -5,6 +5,8 @@
  */
 package projet_jeu_trinome;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,44 +44,45 @@ public class Echequier {
         }
     }
     public void create_Piece(){
+        System.out.print("wsh la zone");
         for (int i = 0; i<11; i++){
             for (int j=0;j<11;j++){
                 int[] tab = new int[2];
                     tab[0]=i;
                     tab[1]=j;
                 if ((i==0 && (j==0 || j==1 ||j==9||j==10)) || (i==1 &&(j==0 || j==10))){                    
-                    Piece piece = new Pyramide("verte",tab);
+                    Piece piece = new Pyramide("v",tab);
                     listPiece.add(piece);
                     Jun.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
                 if ((i==0 && (j==2 || j==8)) ||(i==1 && (j==1 ||j==9)) || (i==2 &&(j==0 ||j==10))){
-                    Piece piece = new Cube("verte",tab);
+                    Piece piece = new Cube("v",tab);
                     listPiece.add(piece);
                     Jun.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
                 if (i==0 && (j==4 ||j==5||j==6)){
-                    Piece piece = new DemiSphere("verte",tab);
+                    Piece piece = new DemiSphere("v",tab);
                     listPiece.add(piece);
                     Jun.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
                 
                 if ((i==10 && (j==0 || j==1 ||j==9||j==10)) || (i==9 &&(j==0 || j==10))){
-                    Piece piece = new Pyramide("rouge",tab);
+                    Piece piece = new Pyramide("r",tab);
                     listPiece.add(piece);
                     Jdeux.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
                 if ((i==10 && (j==2 || j==8)) ||(i==9 && (j==1 ||j==9)) || (i==8 &&(j==0 ||j==10))){
-                    Piece piece = new Cube("rouge",tab);
+                    Piece piece = new Cube("r",tab);
                     listPiece.add(piece);
                     Jdeux.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
                 if (i==10 && (j==4 ||j==5||j==6)){
-                    Piece piece = new DemiSphere("rouge",tab);
+                    Piece piece = new DemiSphere("r",tab);
                     listPiece.add(piece);
                     Jdeux.ajoutPiece(piece);
                     this.tab[i][j] = piece;
@@ -213,6 +216,81 @@ public class Echequier {
         } catch (IOException ex) {
          System.out.println("La liste de scores n’a pas pu être sauvegardée");
         }
+    }
+    void charger() throws IOException{
+        FileReader fich = new FileReader("sauv.txt");        
+        BufferedReader br = new BufferedReader(fich);
+        
+        String line;
+        line = br.readLine();
+        int[]tab= new int[2];
+        String[] temp = new String[3];
+        
+//        int nbr_occur=compteurChar(line, 'v');
+//        line.split("v");
+        while(line != null){
+            temp = line.split(":");
+            int x = Integer.parseInt(temp[1]);
+            int y = Integer.parseInt(temp[2]);
+            tab[0] = Integer.parseInt(temp[1]);
+            tab[1] = Integer.parseInt(temp[2]);
+//            System.out.println("tab 1 : "+tab[1]);
+//            System.out.println(tab[0]+" " + tab[1]);
+//line.contains("v")
+            if(temp[3].equals("v")){
+                System.out.println("v");
+                if (temp[0].equals("Cu")){
+                    Piece piece = new Cube("v",tab);
+                    listPiece.add(piece);
+                    Jun.ajoutPiece(piece);
+                    this.tab[x][y] = piece;
+//                    System.out.println("cu");
+                    System.out.print("x : "+piece.getPosition()[0]+" y : "+piece.getPosition()[1]);
+                }
+                if (temp[0].equals("Py")){
+                    Piece piece = new Pyramide("v",tab);
+                    listPiece.add(piece);
+                    Jun.ajoutPiece(piece);
+                    this.tab[x][y] = piece;
+//                    System.out.println("py");
+                    System.out.print("x : "+piece.getPosition()[0]+" y : "+piece.getPosition()[1]);
+                }
+                if (temp[0].equals("Ds")){
+//                    System.out.println("ds");
+                    Piece piece = new DemiSphere("v",tab);
+                    listPiece.add(piece);
+                    Jun.ajoutPiece(piece);
+                    this.tab[x][y] = piece;
+                    System.out.print("x : "+piece.getPosition()[0]+" y : "+piece.getPosition()[1]);
+                }
+            }
+            if(line.contains("r")){
+                
+                if (temp[0].equals("Cu")){
+                    Piece piece = new Cube("r",tab);
+                    listPiece.add(piece);
+                    Jdeux.ajoutPiece(piece);
+                    this.tab[x][y] = piece;
+                }
+                if (temp[0].equals("Py")){
+                    Piece piece = new Pyramide("r",tab);
+                    listPiece.add(piece);
+                    Jdeux.ajoutPiece(piece);
+                    this.tab[x][y] = piece;
+                }
+                if (temp[0].equals("Ds")){
+                    Piece piece = new DemiSphere("r",tab);
+                    listPiece.add(piece);
+                    Jdeux.ajoutPiece(piece);
+                    this.tab[x][y] = piece;
+                }
+            }
+//            String[] line = sc.nextLine().trim().split(",");
+//            listeScores.add(Integer.valueOf(line));
+            line = br.readLine();
+        }
+        fich.close();
+
     }
 
 }

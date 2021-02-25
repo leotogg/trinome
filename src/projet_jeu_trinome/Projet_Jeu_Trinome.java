@@ -5,6 +5,7 @@
  */
 package projet_jeu_trinome;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -16,27 +17,37 @@ public class Projet_Jeu_Trinome {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
         gestion_Partie();
     }
 
-    public static void gestion_Partie() {
+    public static void gestion_Partie() throws IOException {
         Player player1 = new Player("zebi",1);
         Player player2 = new Player("zebi",2);
         Echequier echequier = new Echequier(player1, player2);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Charger ? O/N");
+        String rep = sc.nextLine();
         
+        if (rep.equals("n")){
         echequier.create_Piece();
         echequier.affichage_tab();
+        }
+        if (rep.equals("o")){       
+        echequier.charger();
+        echequier.affichage_tab();
+        }
+        
         boolean end = false;
         boolean j1 = false;
         boolean j2 = false;
         while (end == false) {
             String[] piece_on_echiquier = new String[1];
             int compteur = 0;
-            Scanner sc = new Scanner(System.in);
+            
             System.out.println("Que voulez-vous faire ? J pour Jouer, Q pour Quitter");
-            String rep = sc.nextLine();
+            rep = sc.nextLine();
 //            if ("J".equals(rep) ||"j".equals(rep)) {
             if (!end){
                 while(!j1){

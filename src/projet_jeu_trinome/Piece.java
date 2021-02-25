@@ -24,6 +24,7 @@ public class Piece {
     public Piece(String couleur_Pièce, int[] position) {
         this.couleur_Pièce = couleur_Pièce;
         position_Piece = position;
+//        System.out.println(position_Piece[0]+" " + position_Piece[1]);
     }
 //----------------------------------------------
 //              Méthodes       
@@ -37,7 +38,7 @@ public class Piece {
     }
     
     public String toString(){
-        return String.valueOf(position_Piece[0]) + String.valueOf(position_Piece[1]+ couleur_Pièce);
+        return ":"+String.valueOf(position_Piece[0])+":" + String.valueOf(position_Piece[1]+":"+ couleur_Pièce);
     }
     public int[] getPosition(){
         return position_Piece;
