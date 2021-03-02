@@ -87,6 +87,7 @@ public class Echequier {
                     Jdeux.ajoutPiece(piece);
                     this.tab[i][j] = piece;
                 }
+                
 //                if ((i==6 && (j==0))){
 //                    Piece piece = new Cube("verte",tab);
 //                    listPiece.add(piece);
@@ -217,76 +218,66 @@ public class Echequier {
          System.out.println("La liste de scores n’a pas pu être sauvegardée");
         }
     }
-    void charger() throws IOException{
+    public void charger() throws IOException{
         FileReader fich = new FileReader("sauv.txt");        
         BufferedReader br = new BufferedReader(fich);
         
         String line;
         line = br.readLine();
-        int[]tab= new int[2];
-        String[] temp = new String[3];
         
-//        int nbr_occur=compteurChar(line, 'v');
-//        line.split("v");
+        String[] temp = new String[3];
+        int x;
+        int y;
+        
         while(line != null){
+            int[]pos= new int[2];
             temp = line.split(":");
-            int x = Integer.parseInt(temp[1]);
-            int y = Integer.parseInt(temp[2]);
-            tab[0] = Integer.parseInt(temp[1]);
-            tab[1] = Integer.parseInt(temp[2]);
-//            System.out.println("tab 1 : "+tab[1]);
-//            System.out.println(tab[0]+" " + tab[1]);
-//line.contains("v")
+            x = Integer.parseInt(temp[1]);
+            y = Integer.parseInt(temp[2]);
+            pos[0] = Integer.parseInt(temp[1]);
+            pos[1] = Integer.parseInt(temp[2]);
             if(temp[3].equals("v")){
                 System.out.println("v");
                 if (temp[0].equals("Cu")){
-                    Piece piece = new Cube("v",tab);
+                    Piece piece = new Cube("v",pos);
                     listPiece.add(piece);
                     Jun.ajoutPiece(piece);
                     this.tab[x][y] = piece;
-//                    System.out.println("cu");
-                    System.out.print("x : "+piece.getPosition()[0]+" y : "+piece.getPosition()[1]);
                 }
                 if (temp[0].equals("Py")){
-                    Piece piece = new Pyramide("v",tab);
+                    Piece piece = new Pyramide("v",pos);
                     listPiece.add(piece);
                     Jun.ajoutPiece(piece);
                     this.tab[x][y] = piece;
-//                    System.out.println("py");
-                    System.out.print("x : "+piece.getPosition()[0]+" y : "+piece.getPosition()[1]);
                 }
                 if (temp[0].equals("Ds")){
-//                    System.out.println("ds");
-                    Piece piece = new DemiSphere("v",tab);
+                    Piece piece = new DemiSphere("v",pos);
                     listPiece.add(piece);
                     Jun.ajoutPiece(piece);
                     this.tab[x][y] = piece;
-                    System.out.print("x : "+piece.getPosition()[0]+" y : "+piece.getPosition()[1]);
                 }
             }
             if(line.contains("r")){
                 
                 if (temp[0].equals("Cu")){
-                    Piece piece = new Cube("r",tab);
+                    Piece piece = new Cube("r",pos);
                     listPiece.add(piece);
                     Jdeux.ajoutPiece(piece);
                     this.tab[x][y] = piece;
                 }
                 if (temp[0].equals("Py")){
-                    Piece piece = new Pyramide("r",tab);
+                    Piece piece = new Pyramide("r",pos);
                     listPiece.add(piece);
                     Jdeux.ajoutPiece(piece);
                     this.tab[x][y] = piece;
                 }
                 if (temp[0].equals("Ds")){
-                    Piece piece = new DemiSphere("r",tab);
+                    Piece piece = new DemiSphere("r",pos);
                     listPiece.add(piece);
                     Jdeux.ajoutPiece(piece);
                     this.tab[x][y] = piece;
                 }
             }
-//            String[] line = sc.nextLine().trim().split(",");
-//            listeScores.add(Integer.valueOf(line));
             line = br.readLine();
         }
         fich.close();
